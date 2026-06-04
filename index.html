@@ -212,17 +212,22 @@
 
   .cap-label{display:block; font-family:var(--mono); font-size:.74rem; letter-spacing:.04em; text-transform:uppercase; color:var(--classic-blue); margin-bottom:6px;}
 
-  /* carousel */
-  .carousel{margin-top:6px;}
-  .car-window{position:relative; height:clamp(280px,42vw,460px); background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-sm);}
-  .car-slide{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); height:100%; width:auto; max-width:none; opacity:0; transition:opacity .35s ease; pointer-events:none; cursor:zoom-in;}
-  .car-slide.is-active{opacity:1; pointer-events:auto;}
-  .car-btn{position:absolute; top:50%; transform:translateY(-50%); z-index:3; width:44px; height:44px; border-radius:50%; border:1px solid var(--line); background:rgba(255,255,255,.93); color:var(--classic-blue); font-size:1.5rem; line-height:0; cursor:pointer; display:grid; place-items:center; box-shadow:var(--shadow-sm); transition:background .2s, transform .2s;}
-  .car-btn:hover{background:#fff; transform:translateY(-50%) scale(1.07);}
-  .car-prev{left:14px;}
-  .car-next{right:14px;}
-  .car-count{position:absolute; bottom:12px; right:14px; z-index:3; font-family:var(--mono); font-size:.72rem; letter-spacing:.05em; color:#fff; background:rgba(15,76,129,.82); padding:5px 11px; border-radius:999px;}
-  .car-cap{margin:16px 2px 0; font-size:.95rem; color:var(--ink-soft); line-height:1.55; min-height:3.2em;}
+  /* image strip (filmstrip — slides side to side, not looping) */
+  .gallery{margin-top:6px;}
+  .strip-wrap{position:relative;}
+  .strip{display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x proximity; scroll-behavior:smooth; padding:6px 2px 16px; scrollbar-width:thin; scrollbar-color:var(--dusty-blue) transparent;}
+  .strip::-webkit-scrollbar{height:8px;}
+  .strip::-webkit-scrollbar-track{background:transparent;}
+  .strip::-webkit-scrollbar-thumb{background:var(--line); border-radius:99px;}
+  .strip img{height:clamp(240px,38vw,360px); width:auto; max-width:none; flex:0 0 auto; scroll-snap-align:center; border-radius:var(--radius); border:1px solid var(--line); background:#fff; box-shadow:var(--shadow-sm); cursor:zoom-in; transition:box-shadow .25s ease;}
+  .strip img:hover{box-shadow:var(--shadow-md);}
+  .strip img.active{box-shadow:0 0 0 2px var(--classic-blue), var(--shadow-md);}
+  .strip-btn{position:absolute; top:48%; transform:translateY(-50%); z-index:3; width:46px; height:46px; border-radius:50%; border:1px solid var(--line); background:rgba(255,255,255,.94); color:var(--classic-blue); font-size:1.5rem; line-height:0; cursor:pointer; display:grid; place-items:center; box-shadow:var(--shadow-md); transition:background .2s, transform .2s, opacity .25s;}
+  .strip-btn:hover{background:#fff; transform:translateY(-50%) scale(1.07);}
+  .strip-btn.prev{left:-8px;}
+  .strip-btn.next{right:-8px;}
+  .strip-btn[disabled]{opacity:0; pointer-events:none;}
+  .strip-cap{margin:14px 2px 0; font-size:.95rem; color:var(--ink-soft); line-height:1.55; min-height:3.2em;}
 
   /* TIMELINE (experience + leadership) */
   .timeline{position:relative; margin-left:8px; padding-left:30px; border-left:2px solid var(--line);}
@@ -301,13 +306,13 @@
     .proj-bar{display:flex; flex-direction:column; width:100%;}
     .proj-field{border-right:0; border-bottom:1px solid var(--line);}
     .proj-field:last-child{border-bottom:0;}
-    .car-btn{width:38px; height:38px; font-size:1.2rem;}
+    .strip-btn{width:40px; height:40px; font-size:1.25rem;}
   }
 
   @media (prefers-reduced-motion:reduce){
     *{scroll-behavior:auto !important;}
     .reveal{opacity:1; transform:none; transition:none;}
-    .car-slide{transition:none;}
+    .strip{scroll-behavior:auto;}
   }
 </style>
 </head>
@@ -415,44 +420,18 @@
             <span class="tag">Fusion 360</span><span class="tag">3D CAD Assembly</span><span class="tag">Gear Train Design</span><span class="tag">FDM / PLA</span><span class="tag">Snap-fit Design</span>
           </div>
         </div>
-        <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="Petalux project images">
-          <div class="car-window">
-            <button class="car-btn car-prev" type="button" aria-label="Previous image">‹</button>
-            <button class="car-btn car-next" type="button" aria-label="Next image">›</button>
-            <span class="car-count" aria-hidden="true">1 / 4</span>
-            <img class="car-slide is-active" src="Petal_Photo_Assembly.png" alt="Petalux lamp full assembly in its resting state" data-label="Consumer-Oriented Assembly" data-cap="Full system view in its resting state, showcasing a consumer-ready aesthetic. The collaborative mechanical architecture was purposefully modeled around the internal electronics to ensure both safety and a sleek, integrated visual profile.">
-            <img class="car-slide" src="Petal_Photo_Gear.png" alt="Worm-style petal drive gear of the Petalux lamp" data-label="Kinematic Design" data-cap="A 1:1 ratio worm-style drive converting Z-axis servo rotation into X and Y-axis petal actuation. Optimized for the 180-degree servo sweep to deliver a precise 90-degree bloom, tailored perfectly for the low-torque requirements of the translucent paper petals.">
-            <img class="car-slide" src="Petal_Photo_Cut.png" alt="Cutaway of the Petalux gear train and central shaft" data-label="Transmission &amp; Routing" data-cap="Friction-fit gear train translating servo rotation to a threaded central shaft, engineered with tight 0.15mm tolerances for 3D-printed PLA. The hollow central axis is specifically designed for uninhibited LED wire routing.">
-            <img class="car-slide" src="Petal_Photo_Base.png" alt="Base of the Petalux lamp with friction-fit hardware housing" data-label="Hardware Integration" data-cap="Precision friction-fit housing for the OLED, speaker, and button, eliminating the need for adhesives or fasteners. The design includes custom snap-fit components for the bottom lid to ensure seamless battery access for the user.">
+        <div class="gallery" data-gallery aria-label="Petalux project images">
+          <div class="strip-wrap">
+            <button class="strip-btn prev" type="button" aria-label="Scroll images left">‹</button>
+            <div class="strip">
+            <img class="strip-img" src="Petal_Photo_Assembly.png" alt="Petalux lamp full assembly in its resting state" data-label="Consumer-Oriented Assembly" data-cap="Full system view in its resting state, showcasing a consumer-ready aesthetic. The collaborative mechanical architecture was purposefully modeled around the internal electronics to ensure both safety and a sleek, integrated visual profile.">
+            <img class="strip-img" src="Petal_Photo_Gear.png" alt="Worm-style petal drive gear of the Petalux lamp" data-label="Kinematic Design" data-cap="A 1:1 ratio worm-style drive converting Z-axis servo rotation into X and Y-axis petal actuation. Optimized for the 180-degree servo sweep to deliver a precise 90-degree bloom, tailored perfectly for the low-torque requirements of the translucent paper petals.">
+            <img class="strip-img" src="Petal_Photo_Cut.png" alt="Cutaway of the Petalux gear train and central shaft" data-label="Transmission &amp; Routing" data-cap="Friction-fit gear train translating servo rotation to a threaded central shaft, engineered with tight 0.15mm tolerances for 3D-printed PLA. The hollow central axis is specifically designed for uninhibited LED wire routing.">
+            <img class="strip-img" src="Petal_Photo_Base.png" alt="Base of the Petalux lamp with friction-fit hardware housing" data-label="Hardware Integration" data-cap="Precision friction-fit housing for the OLED, speaker, and button, eliminating the need for adhesives or fasteners. The design includes custom snap-fit components for the bottom lid to ensure seamless battery access for the user.">
+            </div>
+            <button class="strip-btn next" type="button" aria-label="Scroll images right">›</button>
           </div>
-          <p class="car-cap"><span class="cap-label">Consumer-Oriented Assembly</span>Full system view in its resting state, showcasing a consumer-ready aesthetic. The collaborative mechanical architecture was purposefully modeled around the internal electronics to ensure both safety and a sleek, integrated visual profile.</p>
-        </div>
-      </article>
-
-      <!-- X1 BB-8 -->
-      <article class="project reveal">
-        <div class="project-head">
-          <h3>BB-8 — Spherical Robot Chassis</h3>
-          <div class="proj-bar">
-            <div class="proj-field"><span class="pf-label">Role</span><span class="pf-value">Chassis Mechanical Engineer</span></div>
-            <div class="proj-field"><span class="pf-label">Organization</span><span class="pf-value">X1 Robotics · ASME</span></div>
-            <div class="proj-field"><span class="pf-label">Timeline</span><span class="pf-value">Sept 2025 – Present</span></div>
-          </div>
-          <p>A spherical BB-8 robot built with X1 Robotics (American Society of Mechanical Engineers). As chassis engineer I designed the drivetrain and internal arm components in SolidWorks, positioning motor housings to fit the shell, reducing weight, and developing the core support ring with attention to stress tolerance and in-house manufacturing feasibility.</p>
-          <div class="tags">
-            <span class="tag">SolidWorks</span><span class="tag">Drivetrain Design</span><span class="tag">Structural Analysis</span><span class="tag">DFM</span><span class="tag">Assembly</span>
-          </div>
-        </div>
-        <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="BB-8 project images">
-          <div class="car-window">
-            <button class="car-btn car-prev" type="button" aria-label="Previous image">‹</button>
-            <button class="car-btn car-next" type="button" aria-label="Next image">›</button>
-            <span class="car-count" aria-hidden="true">1 / 3</span>
-            <img class="car-slide is-active" src="X1_Photo_Housing.jpg" alt="BB-8 chassis drivetrain and arm mounting housing" data-label="Chassis Design" data-cap="Primary drivetrain and internal arm mounting structure, engineered to support the robot's entire dynamic weight. The housing geometry was specifically designed to accommodate spatial constraints and mate effectively with the uneven internal surface of the neoprene shell.">
-            <img class="car-slide" src="X1_Photo_Wheels.jpg" alt="Three-wheel omnidirectional drivetrain of the BB-8 robot" data-label="Kinematic Stability" data-cap="Three-wheel omnidirectional drivetrain configuration utilizing custom, high-strength brackets. The mounts are engineered to withstand a 30-pound load capacity while strictly maintaining the perpendicular alignment required for fluid locomotion against the spherical shell.">
-            <img class="car-slide" src="X1_Photo_Shell.jpg" alt="Aluminum support rings on the BB-8 neoprene shell" data-label="Structural Integrity" data-cap="Custom aluminum support rings designed to mitigate seam stress on the bisected neoprene shell. By applying compressive force in the X and Y axes, the bands counteract radial expansion from impact and gravity, perfectly balancing chassis durability with shell flexibility.">
-          </div>
-          <p class="car-cap"><span class="cap-label">Chassis Design</span>Primary drivetrain and internal arm mounting structure, engineered to support the robot's entire dynamic weight. The housing geometry was specifically designed to accommodate spatial constraints and mate effectively with the uneven internal surface of the neoprene shell.</p>
+          <p class="strip-cap"><span class="cap-label">Consumer-Oriented Assembly</span>Full system view in its resting state, showcasing a consumer-ready aesthetic. The collaborative mechanical architecture was purposefully modeled around the internal electronics to ensure both safety and a sleek, integrated visual profile.</p>
         </div>
       </article>
 
@@ -470,18 +449,46 @@
             <span class="tag">SolidWorks</span><span class="tag">Fusion 360</span><span class="tag">Design for Assembly</span><span class="tag">Arduino</span><span class="tag">Raspberry Pi</span><span class="tag">Soldering</span>
           </div>
         </div>
-        <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="Aeris project images">
-          <div class="car-window">
-            <button class="car-btn car-prev" type="button" aria-label="Previous image">‹</button>
-            <button class="car-btn car-next" type="button" aria-label="Next image">›</button>
-            <span class="car-count" aria-hidden="true">1 / 2</span>
-            <img class="car-slide is-active" src="Fan_Photo_Whole.png" alt="Fully assembled Aeris smart-cooling fan" data-label="System Architecture" data-cap="Fully integrated smart-cooling assembly housing dual microcontrollers (Arduino and Raspberry Pi) via friction-fit mounts. The exterior safely encloses three internal motors and a camera module for active facial recognition tracking.">
-            <img class="car-slide" src="Fan_Photo_Inside.png" alt="Internal tri-axis actuation mechanism of the Aeris fan" data-label="Tri-Axis Actuation Mechanism" data-cap="Central support rod engineered for smooth vertical translation, utilizing a custom twist-lock mechanism between the fan and cage. The mechanical structure was intricately modeled around the servo, DC motor, and camera hardware to achieve seamless electromechanical integration.">
+        <div class="gallery" data-gallery aria-label="Aeris project images">
+          <div class="strip-wrap">
+            <button class="strip-btn prev" type="button" aria-label="Scroll images left">‹</button>
+            <div class="strip">
+            <img class="strip-img" src="Fan_Photo_Whole.png" alt="Fully assembled Aeris smart-cooling fan" data-label="System Architecture" data-cap="Fully integrated smart-cooling assembly housing dual microcontrollers (Arduino and Raspberry Pi) via friction-fit mounts. The exterior safely encloses three internal motors and a camera module for active facial recognition tracking.">
+            <img class="strip-img" src="Fan_Photo_Inside.png" alt="Internal tri-axis actuation mechanism of the Aeris fan" data-label="Tri-Axis Actuation Mechanism" data-cap="Central support rod engineered for smooth vertical translation, utilizing a custom twist-lock mechanism between the fan and cage. The mechanical structure was intricately modeled around the servo, DC motor, and camera hardware to achieve seamless electromechanical integration.">
+            </div>
+            <button class="strip-btn next" type="button" aria-label="Scroll images right">›</button>
           </div>
-          <p class="car-cap"><span class="cap-label">System Architecture</span>Fully integrated smart-cooling assembly housing dual microcontrollers (Arduino and Raspberry Pi) via friction-fit mounts. The exterior safely encloses three internal motors and a camera module for active facial recognition tracking.</p>
+          <p class="strip-cap"><span class="cap-label">System Architecture</span>Fully integrated smart-cooling assembly housing dual microcontrollers (Arduino and Raspberry Pi) via friction-fit mounts. The exterior safely encloses three internal motors and a camera module for active facial recognition tracking.</p>
         </div>
       </article>
-      
+
+      <!-- X1 BB-8 -->
+      <article class="project reveal">
+        <div class="project-head">
+          <h3>BB-8 — Spherical Robot Chassis</h3>
+          <div class="proj-bar">
+            <div class="proj-field"><span class="pf-label">Role</span><span class="pf-value">Chassis Mechanical Engineer</span></div>
+            <div class="proj-field"><span class="pf-label">Organization</span><span class="pf-value">X1 Robotics · ASME</span></div>
+            <div class="proj-field"><span class="pf-label">Timeline</span><span class="pf-value">Sept 2025 – Present</span></div>
+          </div>
+          <p>A spherical BB-8 robot built with X1 Robotics (American Society of Mechanical Engineers). As chassis engineer I designed the drivetrain and internal arm components in SolidWorks, positioning motor housings to fit the shell, reducing weight, and developing the core support ring with attention to stress tolerance and in-house manufacturing feasibility.</p>
+          <div class="tags">
+            <span class="tag">SolidWorks</span><span class="tag">Drivetrain Design</span><span class="tag">Structural Analysis</span><span class="tag">DFM</span><span class="tag">Assembly</span>
+          </div>
+        </div>
+        <div class="gallery" data-gallery aria-label="BB-8 project images">
+          <div class="strip-wrap">
+            <button class="strip-btn prev" type="button" aria-label="Scroll images left">‹</button>
+            <div class="strip">
+            <img class="strip-img" src="X1_Photo_Housing.jpg" alt="BB-8 chassis drivetrain and arm mounting housing" data-label="Chassis Design" data-cap="Primary drivetrain and internal arm mounting structure, engineered to support the robot's entire dynamic weight. The housing geometry was specifically designed to accommodate spatial constraints and mate effectively with the uneven internal surface of the neoprene shell.">
+            <img class="strip-img" src="X1_Photo_Wheels.jpg" alt="Three-wheel omnidirectional drivetrain of the BB-8 robot" data-label="Kinematic Stability" data-cap="Three-wheel omnidirectional drivetrain configuration utilizing custom, high-strength brackets. The mounts are engineered to withstand a 30-pound load capacity while strictly maintaining the perpendicular alignment required for fluid locomotion against the spherical shell.">
+            <img class="strip-img" src="X1_Photo_Shell.jpg" alt="Aluminum support rings on the BB-8 neoprene shell" data-label="Structural Integrity" data-cap="Custom aluminum support rings designed to mitigate seam stress on the bisected neoprene shell. By applying compressive force in the X and Y axes, the bands counteract radial expansion from impact and gravity, perfectly balancing chassis durability with shell flexibility.">
+            </div>
+            <button class="strip-btn next" type="button" aria-label="Scroll images right">›</button>
+          </div>
+          <p class="strip-cap"><span class="cap-label">Chassis Design</span>Primary drivetrain and internal arm mounting structure, engineered to support the robot's entire dynamic weight. The housing geometry was specifically designed to accommodate spatial constraints and mate effectively with the uneven internal surface of the neoprene shell.</p>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -662,68 +669,59 @@
   }, { rootMargin: '-45% 0px -50% 0px' });
   sections.forEach(s => navIO.observe(s));
 
-  // ---- per-project carousels ----
-  const groups = []; // groups[gi] = [{src, alt, label, cap}, ...]
+  // ---- image strips (filmstrip; slides side to side, no loop) ----
+  const groups = [];
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lbImg');
   const lbCap = document.getElementById('lbCap');
   let lbGroup = 0, lbIdx = 0, lastFocus = null;
 
-  function capHTML(d){
-    return (d.label ? '<span class="cap-label">' + d.label + '</span>' : '') + d.cap;
-  }
+  function capHTML(d){ return (d.label ? '<span class="cap-label">' + d.label + '</span>' : '') + d.cap; }
 
-  document.querySelectorAll('[data-carousel]').forEach((car, gi) => {
-    const slides = [...car.querySelectorAll('.car-slide')];
-    const capEl = car.querySelector('.car-cap');
-    const countEl = car.querySelector('.car-count');
-    const data = slides.map(s => ({
-      src: s.getAttribute('src'),
-      alt: s.getAttribute('alt') || '',
-      label: s.dataset.label || '',
-      cap: s.dataset.cap || ''
-    }));
+  document.querySelectorAll('[data-gallery]').forEach((gal, gi) => {
+    const strip = gal.querySelector('.strip');
+    const imgs = [...strip.querySelectorAll('img')];
+    const capEl = gal.querySelector('.strip-cap');
+    const prev = gal.querySelector('.strip-btn.prev');
+    const next = gal.querySelector('.strip-btn.next');
+    const data = imgs.map(s => ({ src: s.getAttribute('src'), alt: s.getAttribute('alt') || '', label: s.dataset.label || '', cap: s.dataset.cap || '' }));
     groups[gi] = data;
-    let cur = 0;
 
-    const render = () => {
-      slides.forEach((s, i) => s.classList.toggle('is-active', i === cur));
-      if (capEl) capEl.innerHTML = capHTML(data[cur]);
-      if (countEl) countEl.textContent = (cur + 1) + ' / ' + slides.length;
+    const setActive = (i) => {
+      imgs.forEach((im, k) => im.classList.toggle('active', k === i));
+      if (capEl) capEl.innerHTML = capHTML(data[i]);
     };
-    const go = (d) => { cur = (cur + d + slides.length) % slides.length; render(); };
+    const nearest = () => {
+      const r = strip.getBoundingClientRect(); const c = r.left + r.width / 2;
+      let best = 0, bd = Infinity;
+      imgs.forEach((im, k) => { const ir = im.getBoundingClientRect(); const d = Math.abs(ir.left + ir.width / 2 - c); if (d < bd) { bd = d; best = k; } });
+      return best;
+    };
+    const updateArrows = () => {
+      const max = strip.scrollWidth - strip.clientWidth - 1;
+      const overflowing = strip.scrollWidth > strip.clientWidth + 2;
+      prev.disabled = !overflowing || strip.scrollLeft <= 2;
+      next.disabled = !overflowing || strip.scrollLeft >= max;
+    };
+    let raf = null;
+    strip.addEventListener('scroll', () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => { raf = null; setActive(nearest()); updateArrows(); });
+    });
+    prev.addEventListener('click', () => strip.scrollBy({ left: -strip.clientWidth * 0.8, behavior: 'smooth' }));
+    next.addEventListener('click', () => strip.scrollBy({ left:  strip.clientWidth * 0.8, behavior: 'smooth' }));
+    imgs.forEach((im, i) => im.addEventListener('click', () => openLb(gi, i)));
 
-    car.querySelector('.car-prev').addEventListener('click', () => go(-1));
-    car.querySelector('.car-next').addEventListener('click', () => go(1));
-    slides.forEach(s => s.addEventListener('click', () => openLb(gi, cur)));
-    render();
+    setActive(0);
+    requestAnimationFrame(updateArrows);
+    window.addEventListener('resize', updateArrows);
   });
 
   // ---- lightbox (scoped to the project that was opened) ----
-  function lbRender(){
-    const d = groups[lbGroup][lbIdx];
-    lbImg.src = d.src;
-    lbImg.alt = d.alt;
-    lbCap.innerHTML = capHTML(d);
-  }
-  function openLb(g, i){
-    lbGroup = g; lbIdx = i;
-    lastFocus = document.activeElement;
-    lbRender();
-    lb.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    document.getElementById('lbClose').focus();
-  }
-  function closeLb(){
-    lb.classList.remove('open');
-    document.body.style.overflow = '';
-    if (lastFocus) lastFocus.focus();
-  }
-  function lbGo(d){
-    const n = groups[lbGroup].length;
-    lbIdx = (lbIdx + d + n) % n;
-    lbRender();
-  }
+  function lbRender(){ const d = groups[lbGroup][lbIdx]; lbImg.src = d.src; lbImg.alt = d.alt; lbCap.innerHTML = capHTML(d); }
+  function openLb(g, i){ lbGroup = g; lbIdx = i; lastFocus = document.activeElement; lbRender(); lb.classList.add('open'); document.body.style.overflow = 'hidden'; document.getElementById('lbClose').focus(); }
+  function closeLb(){ lb.classList.remove('open'); document.body.style.overflow = ''; if (lastFocus) lastFocus.focus(); }
+  function lbGo(d){ const n = groups[lbGroup].length; lbIdx = (lbIdx + d + n) % n; lbRender(); }
   document.getElementById('lbClose').addEventListener('click', closeLb);
   document.getElementById('lbNext').addEventListener('click', () => lbGo(1));
   document.getElementById('lbPrev').addEventListener('click', () => lbGo(-1));
