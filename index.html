@@ -220,11 +220,9 @@
   .ga-imgbox:hover img{transform:scale(1.05); filter:brightness(.72);}
   .ga-overlay{position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center; padding:16px; background:rgba(8,38,65,.28); color:#fff; font-size:.82rem; line-height:1.55; text-align:center; text-shadow:0 1px 5px rgba(0,0,0,.6); opacity:0; transition:opacity .3s ease; pointer-events:none;}
   .ga-imgbox:hover .ga-overlay{opacity:1;}
-  .expand-ic{position:absolute; top:10px; right:10px; z-index:3; width:28px; height:28px; border-radius:7px; background:rgba(0,0,0,.42); display:grid; place-items:center; pointer-events:none; transition:background .2s;}
+  .expand-ic{position:absolute; bottom:10px; right:10px; z-index:3; width:28px; height:28px; border-radius:7px; background:rgba(0,0,0,.42); display:grid; place-items:center; pointer-events:none; transition:background .2s;}
   .expand-ic svg{width:13px; height:13px;}
   .ga-imgbox:hover .expand-ic{background:rgba(15,76,129,.82);}
-  .expand-icon{position:absolute; bottom:10px; right:10px; width:28px; height:28px; border-radius:7px; background:rgba(15,76,129,.75); backdrop-filter:blur(4px); display:grid; place-items:center; pointer-events:none; z-index:3;}
-  .expand-icon svg{width:13px; height:13px; stroke:#fff; fill:none;}
   .ga-label{font-family:var(--mono); font-size:.7rem; letter-spacing:.05em; text-transform:uppercase; color:var(--classic-blue); line-height:1.4; text-align:center;}
 
   /* TIMELINE (experience + leadership) */
@@ -701,23 +699,14 @@
     if (e.key === 'ArrowLeft') lbGo(-1);
   });
 
-  // inject caption overlays + expand icons on all project images
-  function makeExpandIcon() {
-    const d = document.createElement('div');
-    d.className = 'expand-icon';
-    d.innerHTML = '<svg viewBox="0 0 14 14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9,1 13,1 13,5"/><polyline points="5,13 1,13 1,9"/><line x1="13" y1="1" x2="8" y2="6"/><line x1="1" y1="13" x2="6" y2="8"/></svg>';
-    return d;
-  }
+  // inject caption overlays on all project images
   document.querySelectorAll('.ga-imgbox').forEach(box => {
     const img = box.querySelector('img');
-    if (!img) return;
-    if (img.dataset.cap) {
-      const ov = document.createElement('div');
-      ov.className = 'ga-overlay';
-      ov.textContent = img.dataset.cap;
-      box.appendChild(ov);
-    }
-    box.appendChild(makeExpandIcon());
+    if (!img || !img.dataset.cap) return;
+    const ov = document.createElement('div');
+    ov.className = 'ga-overlay';
+    ov.textContent = img.dataset.cap;
+    box.appendChild(ov);
   });
 
   // inject expand icon on all project images
