@@ -218,8 +218,13 @@
   .ga-imgbox{position:relative; height:clamp(190px,21vw,290px); border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); background:#fff; box-shadow:var(--shadow-sm); cursor:zoom-in;}
   .ga-imgbox img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease, filter .3s ease;}
   .ga-imgbox:hover img{transform:scale(1.05); filter:brightness(.72);}
-  .ga-overlay{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding:16px; background:rgba(8,38,65,.28); color:#fff; font-size:.82rem; line-height:1.55; text-align:center; text-shadow:0 1px 5px rgba(0,0,0,.6); opacity:0; transition:opacity .3s ease; pointer-events:none;}
+  .ga-overlay{position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center; padding:16px; background:rgba(8,38,65,.28); color:#fff; font-size:.82rem; line-height:1.55; text-align:center; text-shadow:0 1px 5px rgba(0,0,0,.6); opacity:0; transition:opacity .3s ease; pointer-events:none;}
   .ga-imgbox:hover .ga-overlay{opacity:1;}
+  .expand-ic{position:absolute; top:10px; right:10px; z-index:3; width:28px; height:28px; border-radius:7px; background:rgba(0,0,0,.42); display:grid; place-items:center; pointer-events:none; transition:background .2s;}
+  .expand-ic svg{width:13px; height:13px;}
+  .ga-imgbox:hover .expand-ic{background:rgba(15,76,129,.82);}
+  .expand-icon{position:absolute; bottom:10px; right:10px; width:28px; height:28px; border-radius:7px; background:rgba(15,76,129,.75); backdrop-filter:blur(4px); display:grid; place-items:center; pointer-events:none; z-index:3;}
+  .expand-icon svg{width:13px; height:13px; stroke:#fff; fill:none;}
   .ga-label{font-family:var(--mono); font-size:.7rem; letter-spacing:.05em; text-transform:uppercase; color:var(--classic-blue); line-height:1.4; text-align:center;}
 
   /* TIMELINE (experience + leadership) */
@@ -434,6 +439,32 @@
         </div>
       </article>
 
+      <!-- Aeris -->
+      <article class="project reveal">
+        <div class="project-head">
+          <h3>Aeris — Smart-Cooling System</h3>
+          <div class="proj-bar">
+            <div class="proj-field"><span class="pf-label">Role</span><span class="pf-value">Mechanical Engineering Lead</span></div>
+            <div class="proj-field"><span class="pf-label">Organization</span><span class="pf-value">Theta Tau</span></div>
+            <div class="proj-field"><span class="pf-label">Timeline</span><span class="pf-value">Oct – Nov 2025</span></div>
+          </div>
+          <p>A smart-cooling system that uses facial recognition and tri-axis actuation to direct airflow automatically. I engineered the custom enclosures and mechanical linkages in SolidWorks and Fusion 360 with a focus on Design for Assembly, then took it from FDM 3D printing through soldering, electromechanical assembly, and system validation.</p>
+          <div class="tags">
+            <span class="tag">SolidWorks</span><span class="tag">Fusion 360</span><span class="tag">Design for Assembly</span><span class="tag">Arduino</span><span class="tag">Raspberry Pi</span><span class="tag">Soldering</span>
+          </div>
+        </div>
+        <div class="gallery-all" data-gallery aria-label="Aeris project images">
+          <figure class="ga-item">
+            <div class="ga-imgbox"><img src="Fan_Photo_Whole.png" alt="Fully assembled Aeris smart-cooling fan" data-label="System Architecture" data-cap="Fully integrated smart-cooling assembly housing dual microcontrollers (Arduino and Raspberry Pi) via friction-fit mounts. The exterior safely encloses three internal motors and a camera module for active facial recognition tracking."></div>
+            <figcaption class="ga-label">System Architecture</figcaption>
+          </figure>
+          <figure class="ga-item">
+            <div class="ga-imgbox"><img src="Fan_Photo_Inside.png" alt="Internal tri-axis actuation mechanism of the Aeris fan" data-label="Tri-Axis Actuation Mechanism" data-cap="Central support rod engineered for smooth vertical translation, utilizing a custom twist-lock mechanism between the fan and cage. The mechanical structure was intricately modeled around the servo, DC motor, and camera hardware to achieve seamless electromechanical integration."></div>
+            <figcaption class="ga-label">Tri-Axis Actuation Mechanism</figcaption>
+          </figure>
+        </div>
+      </article>
+
       <!-- X1 BB-8 -->
       <article class="project reveal">
         <div class="project-head">
@@ -463,33 +494,6 @@
           </figure>
         </div>
       </article>
-
-<!-- Aeris -->
-      <article class="project reveal">
-        <div class="project-head">
-          <h3>Aeris — Smart-Cooling System</h3>
-          <div class="proj-bar">
-            <div class="proj-field"><span class="pf-label">Role</span><span class="pf-value">Mechanical Engineering Lead</span></div>
-            <div class="proj-field"><span class="pf-label">Organization</span><span class="pf-value">Theta Tau</span></div>
-            <div class="proj-field"><span class="pf-label">Timeline</span><span class="pf-value">Oct – Nov 2025</span></div>
-          </div>
-          <p>A smart-cooling system that uses facial recognition and tri-axis actuation to direct airflow automatically. I engineered the custom enclosures and mechanical linkages in SolidWorks and Fusion 360 with a focus on Design for Assembly, then took it from FDM 3D printing through soldering, electromechanical assembly, and system validation.</p>
-          <div class="tags">
-            <span class="tag">SolidWorks</span><span class="tag">Fusion 360</span><span class="tag">Design for Assembly</span><span class="tag">Arduino</span><span class="tag">Raspberry Pi</span><span class="tag">Soldering</span>
-          </div>
-        </div>
-        <div class="gallery-all" data-gallery aria-label="Aeris project images">
-          <figure class="ga-item">
-            <div class="ga-imgbox"><img src="Fan_Photo_Whole.png" alt="Fully assembled Aeris smart-cooling fan" data-label="System Architecture" data-cap="Fully integrated smart-cooling assembly housing dual microcontrollers (Arduino and Raspberry Pi) via friction-fit mounts. The exterior safely encloses three internal motors and a camera module for active facial recognition tracking."></div>
-            <figcaption class="ga-label">System Architecture</figcaption>
-          </figure>
-          <figure class="ga-item">
-            <div class="ga-imgbox"><img src="Fan_Photo_Inside.png" alt="Internal tri-axis actuation mechanism of the Aeris fan" data-label="Tri-Axis Actuation Mechanism" data-cap="Central support rod engineered for smooth vertical translation, utilizing a custom twist-lock mechanism between the fan and cage. The mechanical structure was intricately modeled around the servo, DC motor, and camera hardware to achieve seamless electromechanical integration."></div>
-            <figcaption class="ga-label">Tri-Axis Actuation Mechanism</figcaption>
-          </figure>
-        </div>
-      </article>
-      
     </div>
   </section>
 
@@ -589,7 +593,7 @@
     <div class="wrap reveal">
       <div class="contact-card">
         <p class="eyebrow" style="text-align:center;">Get in touch</p>
-        <h2>Let's get something moving!</h2>
+        <h2>Let's make something move.</h2>
         <p>I'm open to engineering internship opportunities and happy to talk about any of the work above.</p>
         <div class="contact-btns">
           <a class="btn btn-primary" href="mailto:clairesekim@g.ucla.edu">
@@ -697,14 +701,32 @@
     if (e.key === 'ArrowLeft') lbGo(-1);
   });
 
-  // inject caption overlays (built from data-cap; shown centered on hover)
+  // inject caption overlays + expand icons on all project images
+  function makeExpandIcon() {
+    const d = document.createElement('div');
+    d.className = 'expand-icon';
+    d.innerHTML = '<svg viewBox="0 0 14 14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9,1 13,1 13,5"/><polyline points="5,13 1,13 1,9"/><line x1="13" y1="1" x2="8" y2="6"/><line x1="1" y1="13" x2="6" y2="8"/></svg>';
+    return d;
+  }
   document.querySelectorAll('.ga-imgbox').forEach(box => {
     const img = box.querySelector('img');
-    if (!img || !img.dataset.cap) return;
-    const ov = document.createElement('div');
-    ov.className = 'ga-overlay';
-    ov.textContent = img.dataset.cap;
-    box.appendChild(ov);
+    if (!img) return;
+    if (img.dataset.cap) {
+      const ov = document.createElement('div');
+      ov.className = 'ga-overlay';
+      ov.textContent = img.dataset.cap;
+      box.appendChild(ov);
+    }
+    box.appendChild(makeExpandIcon());
+  });
+
+  // inject expand icon on all project images
+  const expandSVG = '<svg viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9,1 13,1 13,5"/><polyline points="5,13 1,13 1,9"/><line x1="12.5" y1="1.5" x2="8" y2="6"/><line x1="1.5" y1="12.5" x2="6" y2="8"/></svg>';
+  document.querySelectorAll('.ga-imgbox').forEach(box => {
+    const ic = document.createElement('span');
+    ic.className = 'expand-ic'; ic.setAttribute('aria-hidden', 'true');
+    ic.innerHTML = expandSVG;
+    box.appendChild(ic);
   });
 </script>
 </body>
