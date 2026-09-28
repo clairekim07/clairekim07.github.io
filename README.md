@@ -1,6 +1,6 @@
-# Claire Kim — Personal Portfolio
+# Claire Kim — Engineering Portfolio
 
-Personal website for Claire Kim, a Mechanical Engineering student at UCLA. The site presents an overview of my background, mechanical engineering projects, experience, and contact information, and links to a downloadable copy of my résumé.
+Engineering portfolio website for Claire Kim, a Mechanical Engineering student at UCLA. The site presents an overview of my background, mechanical engineering projects, experience, and contact information, and links to a downloadable copy of my résumé.
 
 **Live site:** https://clairekim07.github.io
 
@@ -13,6 +13,7 @@ A single-page portfolio built as a static website. It covers:
 - **Experience** — internship and program experience (RCMakes, UCLA COSMOS)
 - **Leadership** — co-founding and running WEMech, an engineering-education nonprofit
 - **Skills** — CAD, fabrication, programming, and tools
+- **Certifications** - list of current certifications
 - **Contact** — email, LinkedIn, and GitHub links
 
 The projects gallery includes a click-to-enlarge image viewer, and the layout is responsive for desktop and mobile.
@@ -22,17 +23,6 @@ The projects gallery includes a click-to-enlarge image viewer, and the layout is
 - HTML, CSS, and a small amount of vanilla JavaScript — no build step or frameworks
 - Hosted on [GitHub Pages](https://pages.github.com/)
 - Google Fonts (Fraunces, Hanken Grotesk, IBM Plex Mono)
-
-## Repository contents
-
-```
-index.html                  # the website
-README.md                   # this file
-Resume - Claire Kim.pdf      # downloadable résumé
-
-```
-
-> **Note:** filenames are case-sensitive on GitHub Pages. The image and résumé files must be named exactly as listed above (including the spaces and the capitalized `.JPG` extension) for them to load correctly.
 
 ## Contact
 
