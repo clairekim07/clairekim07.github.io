@@ -203,6 +203,47 @@
   .tags{display:flex; flex-wrap:wrap; gap:8px;}
   .tag{font-family:var(--mono); font-size:.72rem; letter-spacing:.03em; color:var(--classic-blue); background:var(--sky-blue); padding:5px 11px; border-radius:999px;}
 
+  /* CAROUSEL GALLERY */
+.gallery-carousel {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 16px;
+  margin-top: 6px;
+  -webkit-overflow-scrolling: touch;
+  
+  /* Custom styled scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--dusty-blue) var(--sky-soft);
+}
+
+.gallery-carousel::-webkit-scrollbar {
+  height: 8px;
+}
+.gallery-carousel::-webkit-scrollbar-track {
+  background: var(--sky-soft);
+  border-radius: 8px;
+}
+.gallery-carousel::-webkit-scrollbar-thumb {
+  background: var(--dusty-blue);
+  border-radius: 8px;
+}
+
+/* Override the default ga-item to prevent shrinking and force the scroll */
+.gallery-carousel .ga-item {
+  flex: 0 0 calc(33.333% - 10px); /* Shows ~3 images at a time on desktop */
+  min-width: 260px; /* Ensures they don't get too small on mobile */
+  scroll-snap-align: start;
+}
+
+@media (max-width: 600px) {
+  .gallery-carousel .ga-item {
+    flex: 0 0 calc(85% - 10px); /* Shows 1 main image + a peek of the next on mobile */
+    min-width: 220px;
+  }
+}
+  
   /* role / organization / timeline bar */
   .proj-bar{display:inline-flex; flex-wrap:wrap; margin:0 0 20px; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#fff; box-shadow:var(--shadow-sm); max-width:100%;}
   .proj-field{padding:12px 24px; display:flex; flex-direction:column; gap:4px; border-right:1px solid var(--line);}
